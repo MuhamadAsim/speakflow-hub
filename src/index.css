@@ -8,35 +8,53 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* AI Voice Assistant Theme */
+    --background: 240 15% 4%;
+    --foreground: 220 15% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 240 12% 8%;
+    --card-foreground: 220 15% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 240 12% 8%;
+    --popover-foreground: 220 15% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 260 85% 65%;
+    --primary-foreground: 220 15% 95%;
+    --primary-glow: 260 85% 75%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 240 12% 12%;
+    --secondary-foreground: 220 15% 85%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 240 8% 15%;
+    --muted-foreground: 220 10% 60%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 200 100% 60%;
+    --accent-foreground: 240 15% 4%;
+    --accent-glow: 200 100% 70%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 85% 65%;
+    --destructive-foreground: 220 15% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 240 8% 20%;
+    --input: 240 8% 15%;
+    --ring: 260 85% 65%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Voice Assistant Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(260 85% 65%), hsl(280 85% 70%));
+    --gradient-accent: linear-gradient(135deg, hsl(200 100% 60%), hsl(220 100% 65%));
+    --gradient-voice: linear-gradient(45deg, hsl(260 85% 65%), hsl(200 100% 60%));
+    --gradient-call: linear-gradient(135deg, hsl(140 60% 50%), hsl(160 60% 55%));
+    
+    /* Voice Assistant Shadows */
+    --shadow-voice: 0 20px 40px -10px hsl(260 85% 65% / 0.3);
+    --shadow-accent: 0 20px 40px -10px hsl(200 100% 60% / 0.2);
+    --shadow-elegant: 0 10px 30px -5px hsl(240 12% 8% / 0.4);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
