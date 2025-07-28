@@ -137,4 +137,29 @@ All colors MUST be HSL.
       display: inline;
     }
   }
+  
+  /* Specific 360px breakpoint for mobile */
+  @media (max-width: 360px) {
+    .min-\[360px\]\:text-xs {
+      font-size: 0.75rem;
+      line-height: 1rem;
+    }
+    .min-\[360px\]\:px-3 {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+    .min-\[360px\]\:py-2 {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+    .min-\[360px\]\:h-9 {
+      height: 2.25rem;
+    }
+    .min-\[360px\]\:w-4 {
+      width: 1rem;
+    }
+    .min-\[360px\]\:h-4 {
+      height: 1rem;
+    }
+  }
 }

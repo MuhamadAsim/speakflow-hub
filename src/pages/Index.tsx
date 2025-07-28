@@ -6,6 +6,7 @@ import SystemPromptConfig from "@/components/SystemPromptConfig";
 import FileUpload from "@/components/FileUpload";
 import CallInterface from "@/components/CallInterface";
 import AdminSettings from "@/components/AdminSettings";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface UploadedFile {
   id: string;
@@ -47,17 +48,20 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Quick Call Button */}
-            <div className="flex items-center space-x-4 flex-shrink-0">
+            {/* Quick Call Button and Theme Toggle */}
+            <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
+              <ThemeToggle />
               <Button
                 variant="call"
-                size="sm"
-                className="shadow-lg text-xs sm:text-sm px-3 sm:px-4"
+                size="lg"
+                className="shadow-lg text-sm px-4 py-2 h-10 
+                          sm:text-base sm:px-6 sm:py-3 sm:h-12
+                          min-[360px]:text-xs min-[360px]:px-3 min-[360px]:py-2 min-[360px]:h-9"
                 onClick={() => {
                   setIsCallActive(true);
                 }}
               >
-                <Phone className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
+                <Phone className="w-4 h-4 mr-1 sm:w-5 sm:h-5 sm:mr-2 min-[360px]:w-4 min-[360px]:h-4" />
                 <span className="hidden xs:inline">Start </span>Call
               </Button>
             </div>
