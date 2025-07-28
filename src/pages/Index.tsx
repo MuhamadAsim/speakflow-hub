@@ -170,7 +170,7 @@ const Index = () => {
       </main>
 
       {/* Sliding Call Panel */}
-      <div className={`fixed top-0 right-0 h-full w-1/2 bg-background border-l border-border transform transition-transform duration-500 z-40 ${isCallActive ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`fixed top-0 right-0 h-full w-1/2 bg-background border-l border-border transform transition-transform duration-500 z-[60] ${isCallActive ? 'translate-x-0' : 'translate-x-full'}`}>
         {isCallActive && (
           <CallInterface
             selectedModel={selectedModel}

@@ -35,6 +35,7 @@ interface CallInterfaceProps {
 
 export default function CallInterface({ selectedModel, systemPrompt, firstMessage, aiSpeaksFirst, onCallStart, onCallEnd, isSlidePanel = false }: CallInterfaceProps) {
   const [isCallActive, setIsCallActive] = useState(false);
+  const [isRinging, setIsRinging] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [useTextInput, setUseTextInput] = useState(false);
@@ -52,28 +53,58 @@ export default function CallInterface({ selectedModel, systemPrompt, firstMessag
   }, [messages]);
 
   const startCall = () => {
-    setIsCallActive(true);
-    setMessages([]);
-    onCallStart?.();
-    
-    // If AI speaks first, add the first message
-    if (aiSpeaksFirst && firstMessage) {
-      const aiMessage: Message = {
-        id: Date.now().toString(),
-        type: 'ai',
-        content: firstMessage,
-        timestamp: new Date()
-      };
-      setMessages([aiMessage]);
+    if (isSlidePanel) {
+      // For slide panel, start with ringing
+      setIsRinging(true);
+      onCallStart?.();
       
-      // Simulate AI speaking
-      setIsAISpeaking(true);
-      setTimeout(() => setIsAISpeaking(false), 3000);
+      // After 3 seconds, connect the call
+      setTimeout(() => {
+        setIsRinging(false);
+        setIsCallActive(true);
+        setMessages([]);
+        
+        // If AI speaks first, add the first message
+        if (aiSpeaksFirst && firstMessage) {
+          const aiMessage: Message = {
+            id: Date.now().toString(),
+            type: 'ai',
+            content: firstMessage,
+            timestamp: new Date()
+          };
+          setMessages([aiMessage]);
+          
+          // Simulate AI speaking
+          setIsAISpeaking(true);
+          setTimeout(() => setIsAISpeaking(false), 3000);
+        }
+      }, 3000);
+    } else {
+      // For regular call, start immediately
+      setIsCallActive(true);
+      setMessages([]);
+      onCallStart?.();
+      
+      // If AI speaks first, add the first message
+      if (aiSpeaksFirst && firstMessage) {
+        const aiMessage: Message = {
+          id: Date.now().toString(),
+          type: 'ai',
+          content: firstMessage,
+          timestamp: new Date()
+        };
+        setMessages([aiMessage]);
+        
+        // Simulate AI speaking
+        setIsAISpeaking(true);
+        setTimeout(() => setIsAISpeaking(false), 3000);
+      }
     }
   };
 
   const endCall = () => {
     setIsCallActive(false);
+    setIsRinging(false);
     setIsListening(false);
     setIsAISpeaking(false);
     setTextInput("");
@@ -146,7 +177,7 @@ export default function CallInterface({ selectedModel, systemPrompt, firstMessag
 
   // Initialize call if it's a slide panel
   useEffect(() => {
-    if (isSlidePanel && !isCallActive) {
+    if (isSlidePanel && !isCallActive && !isRinging) {
       startCall();
     }
   }, [isSlidePanel]);
@@ -160,12 +191,23 @@ export default function CallInterface({ selectedModel, systemPrompt, firstMessag
           <div>
             <h3 className="text-xl font-semibold">Voice Assistant Call</h3>
             <p className="text-sm text-muted-foreground">
-              {isCallActive ? `Connected with ${selectedModel}` : "Ready to start conversation"}
+              {isRinging 
+                ? "Connecting..." 
+                : isCallActive 
+                  ? `Connected with ${selectedModel}` 
+                  : "Ready to start conversation"
+              }
             </p>
           </div>
         </div>
 
         {/* Call Status */}
+        {isRinging && (
+          <div className="flex items-center space-x-2">
+            <div className="w-3 h-3 bg-yellow-500 rounded-full animate-pulse" />
+            <span className="text-sm text-yellow-500 font-medium">Ringing...</span>
+          </div>
+        )}
         {isCallActive && (
           <div className="flex items-center space-x-2">
             <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
@@ -176,7 +218,27 @@ export default function CallInterface({ selectedModel, systemPrompt, firstMessag
 
       {/* Call Controls */}
       <div className="flex justify-center space-x-4">
-        {!isCallActive ? (
+        {isRinging ? (
+          <div className="flex flex-col items-center space-y-4">
+            <div className="flex space-x-2">
+              {[...Array(3)].map((_, i) => (
+                <div
+                  key={i}
+                  className="w-3 h-3 bg-primary rounded-full animate-pulse"
+                  style={{ animationDelay: `${i * 0.2}s` }}
+                />
+              ))}
+            </div>
+            <Button
+              variant="destructive"
+              size="lg"
+              onClick={endCall}
+            >
+              <PhoneOff className="w-5 h-5 mr-2" />
+              Cancel
+            </Button>
+          </div>
+        ) : !isCallActive ? (
           <Button
             variant="call"
             size="xl"
