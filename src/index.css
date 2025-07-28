@@ -121,3 +121,20 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  /* Line clamp utility for text overflow */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Responsive breakpoint for extra small screens */
+  @media (min-width: 375px) {
+    .xs\:inline {
+      display: inline;
+    }
+  }
+}

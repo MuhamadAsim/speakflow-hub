@@ -67,19 +67,19 @@ export default function SystemPromptConfig({ systemPrompt, onPromptChange }: Sys
       {/* Preset Prompts */}
       <div className="space-y-3">
         <label className="text-sm font-medium">Quick Presets:</label>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
           {defaultPrompts.map((preset, index) => (
             <Button
               key={index}
               variant="outline"
               size="sm"
               onClick={() => loadPreset(preset.prompt)}
-              className="justify-start text-left h-auto p-3"
+              className="justify-start text-left h-auto p-3 min-h-[4rem]"
             >
-              <div className="space-y-1">
-                <div className="font-medium text-xs">{preset.name}</div>
-                <div className="text-xs text-muted-foreground truncate">
-                  {preset.prompt.substring(0, 50)}...
+              <div className="space-y-1 w-full">
+                <div className="font-medium text-xs leading-tight">{preset.name}</div>
+                <div className="text-xs text-muted-foreground leading-tight whitespace-normal line-clamp-2">
+                  {preset.prompt.substring(0, 60)}...
                 </div>
               </div>
             </Button>

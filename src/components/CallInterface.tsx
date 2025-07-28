@@ -28,9 +28,12 @@ interface CallInterfaceProps {
   systemPrompt: string;
   firstMessage: string;
   aiSpeaksFirst: boolean;
+  onCallStart?: () => void;
+  onCallEnd?: () => void;
+  isSlidePanel?: boolean;
 }
 
-export default function CallInterface({ selectedModel, systemPrompt, firstMessage, aiSpeaksFirst }: CallInterfaceProps) {
+export default function CallInterface({ selectedModel, systemPrompt, firstMessage, aiSpeaksFirst, onCallStart, onCallEnd, isSlidePanel = false }: CallInterfaceProps) {
   const [isCallActive, setIsCallActive] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isListening, setIsListening] = useState(false);
@@ -51,6 +54,7 @@ export default function CallInterface({ selectedModel, systemPrompt, firstMessag
   const startCall = () => {
     setIsCallActive(true);
     setMessages([]);
+    onCallStart?.();
     
     // If AI speaks first, add the first message
     if (aiSpeaksFirst && firstMessage) {
@@ -73,6 +77,7 @@ export default function CallInterface({ selectedModel, systemPrompt, firstMessag
     setIsListening(false);
     setIsAISpeaking(false);
     setTextInput("");
+    onCallEnd?.();
   };
 
   const toggleMute = () => {
@@ -139,8 +144,15 @@ export default function CallInterface({ selectedModel, systemPrompt, firstMessag
     }, 1000);
   };
 
+  // Initialize call if it's a slide panel
+  useEffect(() => {
+    if (isSlidePanel && !isCallActive) {
+      startCall();
+    }
+  }, [isSlidePanel]);
+
   return (
-    <Card className="p-6 space-y-6">
+    <Card className={`space-y-6 ${isSlidePanel ? 'h-full rounded-none border-0 p-4' : 'p-6'}`}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
