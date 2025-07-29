@@ -34,12 +34,12 @@ const voiceModels: VoiceModel[] = [
     sampleText: "Greetings! I'm Roger, ready to assist you with any questions you might have."
   },
   {
-    id: "cosmos",
-    name: "Cosmos",
+    id: "kareem",
+    name: "Kareem",
     avatar: avatarCosmic,
     description: "Ethereal and mystical voice",
     voiceType: "Neutral • Mystical", 
-    sampleText: "Welcome to the cosmic realm of knowledge. I am Cosmos, your guide through the universe of information."
+    sampleText: "Welcome to the cosmic realm of knowledge. I am kareem, your guide through the universe of information."
   },
   {
     id: "chrome",
@@ -59,20 +59,20 @@ interface VoiceModelSelectorProps {
 export default function VoiceModelSelector({ selectedModel, onModelSelect }: VoiceModelSelectorProps) {
   const [playingModel, setPlayingModel] = useState<string | null>(null);
 
-  const handlePlaySample = async (model: VoiceModel) => {
-    if (playingModel === model.id) {
-      setPlayingModel(null);
-      // Stop current audio playback
-      return;
-    }
+  const handlePlaySample = (model: VoiceModel) => {
+  if (playingModel === model.id) {
+    setPlayingModel(null);
+    return;
+  }
 
-    setPlayingModel(model.id);
-    
-    // Simulate audio playback (in real implementation, you'd use Web Speech API or audio files)
-    setTimeout(() => {
-      setPlayingModel(null);
-    }, 3000);
-  };
+  setPlayingModel(model.id);
+
+  const audio = new Audio(`/audio/${model.id}.wav`); // audio files in /public/audio
+  audio.play();
+
+  audio.onended = () => setPlayingModel(null);
+};
+
 
   return (
     <div className="space-y-6">
