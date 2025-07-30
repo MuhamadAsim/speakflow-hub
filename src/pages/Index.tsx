@@ -72,104 +72,103 @@ const Index = () => {
       {/* Main Content */}
       <main className={`transition-all duration-500 ${isCallActive ? 'mr-1/2 blur-sm' : ''}`}>
         <div className="container mx-auto px-4 sm:px-6 py-8 space-y-12">
-        {/* Hero Section */}
-        <section className="text-center space-y-6 py-12">
-          <div className="space-y-4">
-            <h2 className="text-5xl font-bold bg-gradient-voice bg-clip-text text-transparent leading-tight">
-              Your Intelligent Voice Assistant
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Experience the future of AI conversations with customizable voice models, 
-              intelligent document processing, and real-time communication capabilities.
-            </p>
-          </div>
-          
-          <div className="flex justify-center space-x-2">
-            {[...Array(5)].map((_, i) => (
-              <div
-                key={i}
-                className="w-2 h-8 bg-gradient-voice rounded-full animate-voice-wave opacity-60"
-                style={{ animationDelay: `${i * 0.1}s` }}
-              />
-            ))}
-          </div>
-        </section>
+          {/* Hero Section */}
+          <section className="text-center space-y-6 py-12">
+            <div className="space-y-4">
+              <h2 className="text-5xl font-bold bg-gradient-voice bg-clip-text text-transparent leading-tight">
+                Your Intelligent Voice Assistant
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Experience the future of AI conversations with customizable voice models,
+                intelligent document processing, and real-time communication capabilities.
+              </p>
+            </div>
 
-        {/* Voice Model Selection */}
-        <section className="space-y-8">
-          <VoiceModelSelector
-            selectedModel={selectedModel}
-            onModelSelect={setSelectedModel}
-          />
-        </section>
+            <div className="flex justify-center space-x-2">
+              {[...Array(5)].map((_, i) => (
+                <div
+                  key={i}
+                  className="w-2 h-8 bg-gradient-voice rounded-full animate-voice-wave opacity-60"
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                />
+              ))}
+            </div>
+          </section>
 
-        {/* Configuration Section */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <SystemPromptConfig
-            systemPrompt={systemPrompt}
-            onPromptChange={setSystemPrompt}
-          />
-          
-          <FileUpload
-            uploadedFiles={uploadedFiles}
-            onFilesChange={setUploadedFiles}
-          />
-        </section>
-
-        {/* Call Interface - Hidden when call is active */}
-        {!isCallActive && (
-          <section id="call-section" className="space-y-8">
-            <CallInterface
+          {/* Voice Model Selection */}
+          <section className="space-y-8">
+            <VoiceModelSelector
               selectedModel={selectedModel}
-              systemPrompt={systemPrompt}
-              firstMessage={firstMessage}
-              aiSpeaksFirst={aiSpeaksFirst}
-              onCallStart={() => setIsCallActive(true)}
+              onModelSelect={setSelectedModel}
             />
           </section>
-        )}
 
-        {/* Admin Settings */}
-        <section className="space-y-8">
-          <AdminSettings
-            aiSpeaksFirst={aiSpeaksFirst}
-            firstMessage={firstMessage}
-            onAISpeaksFirstChange={setAISpeaksFirst}
-            onFirstMessageChange={setFirstMessage}
-          />
-        </section>
+          {/* Configuration Section */}
+          <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <SystemPromptConfig
+              systemPrompt={systemPrompt}
+              onPromptChange={setSystemPrompt}
+            />
 
-        {/* Footer Info */}
-        <section className="text-center py-12 border-t border-border">
-          <div className="space-y-4">
-            <h3 className="text-2xl font-semibold">Ready to Get Started?</h3>
-            <p className="text-muted-foreground">
-              Configure your AI assistant above and start your first conversation
-            </p>
-            <div className="flex justify-center space-x-4">
-              <Button
-                variant="voice"
-                onClick={() => {
-                  document.getElementById('call-section')?.scrollIntoView({ 
-                    behavior: 'smooth' 
-                  });
-                }}
-              >
-                <Phone className="w-4 h-4 mr-2" />
-                Start Your First Call
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-              >
-                <Settings className="w-4 h-4 mr-2" />
-                Customize Settings
-              </Button>
+            <FileUpload
+              uploadedFiles={uploadedFiles}
+              onFilesChange={setUploadedFiles}
+            />
+          </section>
+
+          {/* Call Interface - Hidden when call is active */}
+          {!isCallActive && (
+            <section id="call-section" className="space-y-8">
+              <CallInterface
+                selectedModel={selectedModel}
+                systemPrompt={systemPrompt}
+                firstMessage={firstMessage}
+                aiSpeaksFirst={aiSpeaksFirst}
+                onCallStart={() => setIsCallActive(true)}
+              />
+            </section>
+          )}
+
+          {/* Admin Settings */}
+          <section className="space-y-8">
+            <AdminSettings
+              aiSpeaksFirst={aiSpeaksFirst}
+              firstMessage={firstMessage}
+              onAISpeaksFirstChange={setAISpeaksFirst}
+              onFirstMessageChange={setFirstMessage}
+            />
+          </section>
+
+          {/* Footer Info */}
+          <section className="text-center py-12 border-t border-border">
+            <div className="space-y-4">
+              <h3 className="text-2xl font-semibold">Ready to Get Started?</h3>
+              <p className="text-muted-foreground">
+                Configure your AI assistant above and start your first conversation
+              </p>
+              <div className="flex justify-center space-x-4">
+                <Button
+                  variant="voice"
+                  onClick={() => {
+                    setIsCallActive(true);
+                  }}
+                >
+                  <Phone className="w-4 h-4 mr-2" />
+                  Start Your First Call
+                </Button>
+
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                >
+                  <Settings className="w-4 h-4 mr-2" />
+                  Customize Settings
+                </Button>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
         </div>
       </main>
 
