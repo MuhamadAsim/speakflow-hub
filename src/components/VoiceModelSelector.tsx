@@ -39,7 +39,7 @@ const voiceModels: VoiceModel[] = [
     avatar: avatarCosmic,
     description: "Ethereal and mystical voice",
     voiceType: "Neutral • Mystical", 
-    sampleText: "Welcome to the cosmic realm of knowledge. I am kareem, your guide through the universe of information."
+    sampleText: "I am kareem, your guide through the universe of information."
   },
   {
     id: "chrome",
